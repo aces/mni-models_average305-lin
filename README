@@ -1,0 +1,59 @@
+		     MNI Average Brain (305 MRI)
+		    Stereotaxic Registration Model
+
+This is a version of the MNI Average Brain (an average of 305
+T1-weighted MRI scans, linearly transformed to Talairach space)
+specially adapted for use with the MNI Linear Registration Package
+(mni_reg).  Included in this package are the following files:
+
+     average_305.mnc 
+	a version of the average MRI that covers the whole brain
+        (unlike the original Talairach atlas), sampled with 1mm cubic
+        voxels
+     average_305_mask.mnc 
+	a mask of the brain in average_305.mnc, semi-automatically
+        created by Dr. Colin Holmes <colin@pet.mni.mcgill.ca>.  Note
+        that this mask has had holes filled in, so it is a connected
+        volume but includes non-brain tissue (eg. the CSF in the
+        ventricles)
+     average_305_headmask.mnc 
+	another mask, required for nonlinear mode
+
+Here's a brief summary of what you need to do:
+
+1) Build and install the entire MNI AutoReg package, as described in
+   the README with that package. 
+
+2) Install the model:
+     * ./configure --prefix=/usr/local/mni
+	     or where you installed mni_autoreg
+
+     * make
+
+     * make install
+
+Now, you're ready to try out mritotal on real data.  See the file
+TESTING included with MNI AutoReg for instructions on doing this.
+
+Any problems with this package should be reported to 
+Andrew Janke <rotor@bic.mni.mcgill.ca>, or
+Louis Collins <louis@bic.mni.mcgill.ca>.
+
+Reference:
+
+  Collins, D.L., Neelin, P., Peters, T.M., Evans, A.C. (1994) 
+  Automatic 3-D intersubject registration of MR volumetric data in standardized Talairach space. 
+  J. Comput. Assist. Tomogr. 18 (2), 192–205.
+
+  Evans, A.C., Collins, D.L., Milner, B. (1992) 
+  An MRI-based stereotaxic atlas from 250 young normal subjects. 
+  Proc 22nd Annual Symposium, Society for Neuroscience, 18, p. 408.
+
+  Evans, A.C., Marrett, S., Neelin, P., Collins, D.L., Worsley, K., Dai, W., Milot, S., Meyer, E., Bub, D. (1992) 
+  Anatomical mapping of functional activation in stereotactic coordinate space. 
+  NeuroImage 1 (1), 43–63.
+
+  Evans, A.C., Collins, D.L., Mills, S.R., Brown, E.D., Kelly, R.L., Peters, T.M. (1993) 
+  3D statis- tical neuroanatomical models from 305 MRI volumes. 
+  Proc IEEE-Nuclear Science Symposium and Medical Imaging Conference, pp. 1813–1817.
+
