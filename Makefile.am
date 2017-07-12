@@ -13,7 +13,7 @@ MODELS := $(MODEL_BASE)
 DATE_STAMP := `date +%D-%T`
 
 # package data
-dist_pkgdata_DATA := \
+noinst_DATA := \
 	$(MODELS:=.mnc.gz) \
 	$(MODEL_BASE)_mask.mnc.gz \
 	$(MODEL_BASE)_headmask.mnc.gz
@@ -22,38 +22,21 @@ dist_pkgdata_DATA := \
 pkgdata_DATA := \
 	$(MODELS:=.mnc) \
 	$(MODELS:=_mask.mnc) \
-	$(MODELS:=_headmask.mnc) \
-	$(MODELS:=_16_blur.mnc) \
-	$(MODELS:=_16_mask.mnc) \
-	$(MODELS:=_2_blur.mnc) \
-	$(MODELS:=_2_dxyz.mnc) \
-	$(MODELS:=_2_mask.mnc) \
-	$(MODELS:=_4_blur.mnc) \
-	$(MODELS:=_4_dxyz.mnc) \
-	$(MODELS:=_4_mask.mnc) \
-	$(MODELS:=_8_blur.mnc) \
-	$(MODELS:=_8_dxyz.mnc) \
-	$(MODELS:=_8_mask.mnc)
+	$(MODELS:=_headmask.mnc)
 
-EXTRA_DIST = $(m4_files) \
+EXTRA_DIST = $(noinst_DATA) $(m4_files) \
 	epm-header.in
 
-m4_files = local_m4/ac_prog_gzip.m4 \
-	local_m4/ac_prog_make_model.m4
+m4_files = local_m4/ac_prog_gzip.m4
 
 # be tidy
-CLEANFILES = $(pkgdata_DATA) $(MODELS:=_pad.mnc)
+CLEANFILES = $(pkgdata_DATA)
 
 # gunzip rule
 %: %.gz
 	$(gzip) -d -c $< > $@
 
-all: $(dist_pkgdata_DATA:.gz=) $(DATE)
-	for i in $(MODELS); \
-	do \
-      $(make_model) $$i; \
-	done
-	echo "USER: $$USER"
+all: $(noinst_DATA:.gz=) $(DATE)
 	for i in $(pkgdata_DATA); \
    do \
       echo "Adding mni-model header to $$i"; \
